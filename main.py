@@ -4,6 +4,8 @@ from bip44 import Wallet
 from bip44.utils import get_eth_addr
 from libs import fn
 
+MIN_LENGTH = 3
+
 while True:
     mnemonic = Mnemonic("english")
     words = mnemonic.generate(strength=256)
@@ -17,11 +19,11 @@ while True:
     end = fn.get_end(raw)
 
     p2f = None
-    if len(start) > 3 and len(end) > 3:
+    if len(start) > MIN_LENGTH and len(end) > MIN_LENGTH:
         p2f = os.path.join('./data', '{}__{}.txt'.format(start, end))
-    if len(start) > 3:
+    if len(start) > MIN_LENGTH:
         p2f = os.path.join('./data', '{}__.txt'.format(start))
-    if len(end) > 3:
+    if len(end) > MIN_LENGTH:
         p2f = os.path.join('./data', '__{}.txt'.format(end))
 
     if p2f:
