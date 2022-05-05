@@ -28,5 +28,5 @@ while True:
 
     if p2f:
         print(address)
-        with open(p2f, 'w', encoding='utf-8') as f:
-            f.write('{address} <= {sk} <= {words}'.format(address=address, sk=sk.hex(), words=words))
+        with open(p2f, 'a', encoding='utf-8') as f:
+            f.write('{address} <= {sk} <= {words}\n'.format(address=address, sk=sk.hex(), words=words))
