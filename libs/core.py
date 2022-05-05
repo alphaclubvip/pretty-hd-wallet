@@ -1,4 +1,5 @@
 import os
+import moment
 from mnemonic import Mnemonic
 from bip44 import Wallet
 from bip44.utils import get_eth_addr
@@ -144,5 +145,5 @@ def generate(i, min_length: int = 4):
             with open(p2f, 'a', encoding='utf-8') as f:
                 f.write('{address} <= {sk} <= {words}\n'.format(address=address, sk=sk.hex(), words=words))
 
-            print('{}: {}'.format(address, p2f))
+            print('{} -- {}: {}'.format(moment.now().format('YYYY-MM-DD HH:mm:ss'), address, p2f))
             return address

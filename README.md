@@ -14,7 +14,7 @@ May be u should google it.
 ## Install dependencies and run the script
 
 ```bash
-$ pip3 install mnemonic bip44
+$ pip3 install moment mnemonic bip44
 $ python main.py
 > Min length: 6
 > Wallets amount: 10
