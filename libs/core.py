@@ -63,7 +63,7 @@ def get_start(s: str):
                 char = i
                 text += c
             else:
-                return text.upper()
+                return same, text.upper()
         else:
             if same == 0 and char == i:
                 text += c
@@ -74,9 +74,9 @@ def get_start(s: str):
                 char = i
                 text += c
             else:
-                return text.upper()
+                return same, text.upper()
 
-    return text.upper()
+    return same, text.upper()
 
 
 def get_end(s: str):
@@ -104,7 +104,7 @@ def get_end(s: str):
                 char = i
                 text += c
             else:
-                return text[::-1].upper()
+                return same, text[::-1].upper()
         else:
             if same == 0 and char == i:
                 text += c
@@ -115,9 +115,9 @@ def get_end(s: str):
                 char = i
                 text += c
             else:
-                return text[::-1].upper()
+                return same, text[::-1].upper()
 
-    return text[::-1].upper()
+    return same, text[::-1].upper()
 
 
 def generate(i, min_length: int = 4):
@@ -130,16 +130,20 @@ def generate(i, min_length: int = 4):
         sk, pk = w.derive_account("eth", account=0)
         address = get_eth_addr(pk)
         line = address[2:]
-        start = get_start(line)
-        end = get_end(line)
+        start_same, start_chars = get_start(line)
+        end_same, end_chars = get_end(line)
 
         p2f = None
-        if len(start) >= min_length and len(end) >= min_length:
-            p2f = os.path.join('./data', '{}__{}.txt'.format(start, end))
-        if len(start) >= min_length:
-            p2f = os.path.join('./data', '{}__.txt'.format(start))
-        if len(end) >= min_length:
-            p2f = os.path.join('./data', '__{}.txt'.format(end))
+        if len(start_chars) >= min_length and len(end_chars) >= min_length:
+            p2f = os.path.join('./data', '{}__{}.txt'.format(start_chars, end_chars))
+        elif len(start_chars) >= min_length:
+            p2f = os.path.join('./data', '{}__.txt'.format(start_chars))
+        elif len(end_chars) >= min_length:
+            p2f = os.path.join('./data', '__{}.txt'.format(end_chars))
+        elif start_same == 0 and end_same == 0 \
+                and len(start_chars) >= int(min_length / 2) \
+                and len(end_chars) >= int(min_length / 2):
+            p2f = os.path.join('./data', '{}__{}.txt'.format(start_chars, end_chars))
 
         if p2f:
             with open(p2f, 'a', encoding='utf-8') as f:
