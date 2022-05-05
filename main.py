@@ -1,32 +1,15 @@
-import os
-from mnemonic import Mnemonic
-from bip44 import Wallet
-from bip44.utils import get_eth_addr
-from libs import fn
+from multiprocessing import Pool
+from functools import partial
+from libs import core
 
-MIN_LENGTH = 3
+if __name__ == "__main__":
+    length = core.integer('Min length')
+    amount = core.integer('Wallets amount')
+    threads = core.integer('Treads')
 
-while True:
-    mnemonic = Mnemonic("english")
-    words = mnemonic.generate(strength=256)
+    partial_work = partial(core.generate, min_length=length)
 
-    w = Wallet(words)
-
-    sk, pk = w.derive_account("eth", account=0)
-    address = get_eth_addr(pk)
-    raw = address[2:]
-    start = fn.get_start(raw)
-    end = fn.get_end(raw)
-
-    p2f = None
-    if len(start) > MIN_LENGTH and len(end) > MIN_LENGTH:
-        p2f = os.path.join('./data', '{}__{}.txt'.format(start, end))
-    if len(start) > MIN_LENGTH:
-        p2f = os.path.join('./data', '{}__.txt'.format(start))
-    if len(end) > MIN_LENGTH:
-        p2f = os.path.join('./data', '__{}.txt'.format(end))
-
-    if p2f:
-        print(address)
-        with open(p2f, 'a', encoding='utf-8') as f:
-            f.write('{address} <= {sk} <= {words}\n'.format(address=address, sk=sk.hex(), words=words))
+    pool = Pool(threads)
+    pool.map(partial_work, range(amount))
+    pool.close()
+    pool.join()
