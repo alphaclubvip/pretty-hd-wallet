@@ -27,14 +27,44 @@
     - `0xAAA...AAA`
     - `0xAAA...BBB`
 
-## Install Python3
+## Installation Guide 安装依赖包
+### python
 
-May be u should google it.
+去 https://www.python.org/ 下载并安装 python3
+(Windows)安装的时候推荐把python加到PATH里面
 
-## Install dependencies and run the script
+### pip
+安装 python 之后需要安装 pip 软件管理工具 
+下载并保存 https://bootstrap.pypa.io/get-pip.py 脚本
+在命令行里切换到你保存脚本的路径
 
 ```bash
-$ pip3 install moment mnemonic bip44
+cd /Where/The/Script/Is/Stored
+```
+
+运行脚本安装 pip
+
+```bash
+python3 get-pip.py
+```
+
+## moment mnemonic
+
+```bash
+$ pip3 install moment mnemonic 
+```
+
+## bip44
+
+这个包需要安装 C++
+
+```bash
+$ pip3 install bip44
+```
+
+## Run the script 运行脚本
+
+```bash
 $ python main.py
 > Min length: 6
 > Wallets amount: 200
