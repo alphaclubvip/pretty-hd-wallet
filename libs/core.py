@@ -83,7 +83,7 @@ def get_start(s: str):
 
 def get_end(s: str):
     same, text = get_start(s[::-1])
-    entextd = text[::-1]
+    text = text[::-1]
     return same, text
 
 
