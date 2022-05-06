@@ -82,7 +82,9 @@ def get_start(s: str):
 
 
 def get_end(s: str):
-    return get_start(s[::-1])[::-1]
+    same, text = get_start(s[::-1])
+    entextd = text[::-1]
+    return same, text
 
 
 def generate(i, min_length: int = 4):
