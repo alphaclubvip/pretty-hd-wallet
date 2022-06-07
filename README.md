@@ -51,15 +51,7 @@ python3 get-pip.py
 ## moment mnemonic
 
 ```bash
-$ pip3 install moment mnemonic 
-```
-
-## bip44
-
-这个包需要安装 C++
-
-```bash
-$ pip3 install bip44
+$ pip3 install moment mnemonic bip44
 ```
 
 ## Run the script 运行脚本
